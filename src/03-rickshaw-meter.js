@@ -52,20 +52,57 @@
  */
 export function parseFare(fareString) {
   // Your code here
+  if (typeof fareString !== 'string' || fareString.length === 0 || isNaN(+fareString)) {
+    return -1
+  } else {
+    return parseFloat(fareString)
+  }
 }
 
 export function roundFare(amount, decimalPlaces) {
   // Your code here
+  if (typeof amount !== 'number' || !Number.isInteger(decimalPlaces) || decimalPlaces < 0) {
+    return ''
+  } else {
+    return amount.toFixed(decimalPlaces)
+  }
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
   // Your code here
+  if(baseFare < 0 || surgeMultiplier < 0 || typeof baseFare !== 'number' || typeof surgeMultiplier !== 'number' || !isFinite(baseFare) || !isFinite(surgeMultiplier)) {
+    return 0
+  } else {
+    return Math.ceil(baseFare * surgeMultiplier)
+  }
 }
 
 export function findCheapestAndCostliest(...fares) {
   // Your code here
+  const allFares = [...fares]
+  const filterNonNumFares = allFares.filter((fare) => typeof fare === 'number')
+  
+  if(filterNonNumFares.length === 0) {
+    return null
+  } else {
+    const minFare = Math.min(...filterNonNumFares)
+    const maxFare = Math.max(...filterNonNumFares)
+    return {
+      cheapest: minFare,
+      costliest: maxFare
+    }
+  }
 }
 
 export function getDistanceDifference(from, to) {
   // Your code here
+  const fromKm = parseInt(from)
+  const toKm = parseInt(to)
+
+  if(isNaN(fromKm) || isNaN(toKm)) {
+    return -1
+  } else {
+    const absDiffrence = Math.abs(fromKm - toKm)
+    return absDiffrence
+  }
 }
